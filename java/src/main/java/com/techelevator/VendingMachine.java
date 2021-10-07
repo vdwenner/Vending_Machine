@@ -8,6 +8,11 @@ import static java.lang.System.exit;
 
 public class VendingMachine {
     public HashMap<String, Slot> slotMap = new HashMap<>();
+    public int balance = 0;
+
+    public int getBalance() {
+        return balance;
+    }
 
     public String makeChange(int balance){
         int nickel = 5;
@@ -15,7 +20,7 @@ public class VendingMachine {
         int quarter = 25;
         int numberOfPennies = 0;
         int numberOfNickels = 0;
-        int numberofDimes = 0;
+        int numberOfDimes = 0;
         int numberOfQuarters = 0;
         int leftOver = 0;
         int coin = quarter;
@@ -33,7 +38,7 @@ public class VendingMachine {
             numberOfCoins = (balance - leftOver) / coin;
             balance = balance - (numberOfCoins * coin);
         }
-        numberofDimes = numberOfCoins;
+        numberOfDimes = numberOfCoins;
         coin = nickel;
         if (balance >= coin){
             leftOver = balance % coin;
@@ -43,6 +48,10 @@ public class VendingMachine {
         numberOfNickels = numberOfCoins;
         numberOfPennies = balance;
 
+    }
+
+    public void takeMoney(int deposit){
+        balance += (deposit * 100);
     }
 
     public void getVendingInfo () {

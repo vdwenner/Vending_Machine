@@ -67,7 +67,7 @@ public class VendingMachineCLI {
 					slotValue.display();
 
 
-
+					String wrongSlot = (String) menu.getChoiceFromOptions(); //put in the slot input
 
 					if (!snackMaster3000.getSlotMap.contains(wrongSlot)) { //if people put in a slot that doesnt exist
 						System.out.println("That slot does not exist.");
