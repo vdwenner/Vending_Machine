@@ -2,6 +2,10 @@ package com.techelevator;
 
 import com.techelevator.view.Menu;
 
+import java.io.File;
+import java.io.PrintWriter;
+import java.util.Scanner;
+
 public class VendingMachineCLI {
 	//main options
 	private static final String MAIN_MENU_OPTION_DISPLAY_ITEMS = "Display Vending Machine Items";
@@ -33,4 +37,9 @@ public class VendingMachineCLI {
 		VendingMachineCLI cli = new VendingMachineCLI(menu);
 		cli.run();
 	}
+
+//	File log = new File("log.txt");
+//	String purchaseLog = new PrintWriter("log.txt");
+//	File.
+//
 }
