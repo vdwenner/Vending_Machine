@@ -6,7 +6,7 @@ import static java.lang.String.valueOf;
 
 public class Slot {
     private String identifier;
-    private int quantity;
+    private int quantity = 5;
     private String brandName;
     private String category;
     private int price;
