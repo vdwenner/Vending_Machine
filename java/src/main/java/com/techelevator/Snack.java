@@ -33,12 +33,16 @@ public class Snack {
         this.category = category;
     }
 
+
+    //constructors
     public Snack(String brandName, String category, int price) {
         this.brandName = brandName;
         this.category = category;
         this.price = price;
     }
 
+
+    //methods
     public String getPhrase(){
         HashMap<String, String> phraseMap = new HashMap<String, String>();
         phraseMap.put("chip", "Crunch Crunch, Yum!");
