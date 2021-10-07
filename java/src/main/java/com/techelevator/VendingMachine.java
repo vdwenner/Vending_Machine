@@ -6,11 +6,17 @@ import java.util.Map;
 import java.util.Scanner;
 
 import static java.lang.System.exit;
+import static java.lang.System.nanoTime;
 
 public class VendingMachine {
     public HashMap<String, Slot> slotMap = new HashMap<>();
     public int balance = 0;
     public String exitDialogue = "Thank you for your purchase! Have an amazing day!";
+
+
+    public HashMap<String, Slot> getSlotMap() {
+        return slotMap;
+    }
 
     public String getExitDialogue() {
         return exitDialogue;
@@ -19,6 +25,12 @@ public class VendingMachine {
     public int getBalance() {
         return balance;
     }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
+    }
+
+
 
     public int[] makeChange(int balance){
         int nickel = 5;
@@ -54,7 +66,9 @@ public class VendingMachine {
         numberOfNickels = numberOfCoins;
         numberOfPennies = balance;
         int[] coinsChange = new int[]{numberOfQuarters, numberOfDimes, numberOfNickels, numberOfPennies};
+        balance = 0;
         return coinsChange;
+
     }
 
     public void takeMoney(int deposit){
@@ -81,18 +95,17 @@ public class VendingMachine {
             exit(1);
         }
     }
-        public HashMap<String, Slot> getSlotMap() {
-            return slotMap;
-        }
+
 
 
         public String displayItems(){
         String info = "";
         for(Map.Entry<String, Slot> element: slotMap.entrySet()){
-            info += slotMap.get(element).getIdentifier();
-            info += slotMap.get(element).getBrandName();
-            info += slotMap.get(element).getPrice();
-            info += slotMap.get(element).getQuantity();
+            info = info + element.getValue().getIdentifier();
+            info = info + ", " + element.getValue().getBrandName();
+            info = info + ", " + element.getValue().getPrice();
+            info = info + ", " + element.getValue().getQuantity() + "\n";
+            //ordered Map like TreeMap to make it ordered
         }
             return info;
         }
