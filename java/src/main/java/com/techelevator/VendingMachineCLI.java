@@ -43,12 +43,24 @@ public class VendingMachineCLI {
 			} else if (userChoice.equals(PURCHASE_MENU_OPTIONS)){
 				//placeholder
 				snackMaster3000.takeMoney();
-			} else if (userChoice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT){
-				snackMaster3000.display();
+			} else if (userChoice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)){
+				Slot slotValue = snackMaster3000.getSlotMap.get(userInput);
+				slotValue.display();
 				if (!snackMaster3000.getSlotMap.contains(wrongSlot)){ //if people put in a slot that doesnt exist
 					System.out.println("That slot does not exist.");
 					//return to purchasing menu
+				} if (slotValue.getQuantity() == 0){
+					System.out.println("OUT OF STOCK");
+					//return to purchase menu
 				}
+				if (balance >= slotValue.getPrice()) {
+					System.out.println(slotValue.getPhrase());
+					balance = balance - slotValue.getPrice();
+					//add a comma
+				}
+			} else if (userChoice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)) {
+				snackMaster3000.makeChange();
+				//return to main menu
 			}
 		}
 	}
