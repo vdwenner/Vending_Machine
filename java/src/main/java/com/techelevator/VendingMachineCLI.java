@@ -3,10 +3,12 @@ package com.techelevator;
 import com.techelevator.view.Menu;
 
 public class VendingMachineCLI {
-
+	//main options
 	private static final String MAIN_MENU_OPTION_DISPLAY_ITEMS = "Display Vending Machine Items";
 	private static final String MAIN_MENU_OPTION_PURCHASE = "Purchase";
 	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE };
+	//purchase options
+	private static final String PURCHASE_MENU_OPTION_DEPOSIT_MONEY = "Add Money";
 
 	private Menu menu;
 
