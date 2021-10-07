@@ -13,11 +13,36 @@ public class VendingMachine {
         int nickel = 5;
         int dime = 10;
         int quarter = 25;
+        int numberOfPennies = 0;
+        int numberOfNickels = 0;
+        int numberofDimes = 0;
+        int numberOfQuarters = 0;
         int leftOver = 0;
         int coin = quarter;
+        int numberOfCoins = 0;
+        int remainingToMakeChange = 0;
         if (balance >= coin){
-            leftOver = balance % quarter;
+            leftOver = balance % coin;
+            numberOfCoins = (balance - leftOver) / coin;
+            balance = balance - (numberOfCoins * coin);
         }
+        numberOfQuarters = numberOfCoins;
+        coin = dime;
+        if (balance >= coin){
+            leftOver = balance % coin;
+            numberOfCoins = (balance - leftOver) / coin;
+            balance = balance - (numberOfCoins * coin);
+        }
+        numberofDimes = numberOfCoins;
+        coin = nickel;
+        if (balance >= coin){
+            leftOver = balance % coin;
+            numberOfCoins = (balance - leftOver) / coin;
+            balance = balance - (numberOfCoins * coin);
+        }
+        numberOfNickels = numberOfCoins;
+        numberOfPennies = balance;
+
     }
 
     public void getVendingInfo () {

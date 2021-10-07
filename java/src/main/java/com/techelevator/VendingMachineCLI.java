@@ -53,7 +53,7 @@ public class VendingMachineCLI {
 					activeMenu = PURCHASE_MENU_OPTIONS;
 					// do purchase
 				} else if (userChoice.equals(MAIN_MENU_OPTION_EXIT)) {
-					snackMaster3000.makeChange();
+					snackMaster3000.makeChange(balance);
 					snackMaster3000.exitDialogue();
 					exit(1);
 				} else if (userChoice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
