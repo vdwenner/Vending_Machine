@@ -39,17 +39,13 @@ public class Snack {
         this.price = price;
     }
 
-    public Map getPhraseMap(){
-        Map<String, String> phraseMap = new HashMap<String, String>();
+    public String getPhrase(){
+        HashMap<String, String> phraseMap = new HashMap<String, String>();
         phraseMap.put("chip", "Crunch Crunch, Yum!");
         phraseMap.put("candy", "Munch Munch, Yum!");
         phraseMap.put("drink", "Glug Glug, Yum!");
         phraseMap.put("gum", "Chew Chew, Yum!");
-        return phraseMap;
-    }
-
-    public String getPhrase(){
-        System.out.println(getPhraseMap().get(category));
+        return phraseMap.get(category);
     }
 
 }
