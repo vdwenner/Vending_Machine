@@ -37,6 +37,7 @@ public class VendingMachineCLI {
 		this.menu = menu;
 	}
 
+
 	public void run() {
 		VendingMachine snackMaster3000 = new VendingMachine();
 		String[] activeMenu = MAIN_MENU_OPTIONS;
@@ -54,7 +55,7 @@ public class VendingMachineCLI {
 					// do purchase
 				} else if (userChoice.equals(MAIN_MENU_OPTION_EXIT)) {
 					snackMaster3000.makeChange(balance);
-					snackMaster3000.exitDialogue();
+					System.out.println(snackMaster3000.getExitDialogue());
 					exit(1);
 				} else if (userChoice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
 					//placeholder
@@ -64,7 +65,7 @@ public class VendingMachineCLI {
 					//print without ln for multiple uses. Put version for each purchase option
 				} else if (userChoice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
 					Slot slotValue = snackMaster3000.getSlotMap.get(userInput);
-					slotValue.display();
+					snackMaster3000.displayItems();
 
 
 					String wrongSlot = (String) menu.getChoiceFromOptions(); //put in the slot input
