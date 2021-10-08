@@ -49,11 +49,11 @@ public class VendingMachineCLI {
 		//need to show balance line every time anything but main menu is accessed.
 		String[] activeMenu = MAIN_MENU_OPTIONS;
 		while (true) {
-			File log = new File("log.txt");
+
 			try (PrintWriter transactionLog = new PrintWriter("log.txt");) {
 				String userChoice = (String) menu.getChoiceFromOptions(activeMenu);
 				if (activeMenu != MAIN_MENU_OPTIONS){
-					snackMaster3000.showBalance(snackMaster3000.getBalance()));
+					snackMaster3000.showBalance(snackMaster3000.getBalance());
 				}
 				LocalDateTime timeInfo = LocalDateTime.now();
 
@@ -61,17 +61,24 @@ public class VendingMachineCLI {
 					// display vending machine items
 					System.out.println(snackMaster3000.displayItems());
 				} else if (userChoice.equals(MAIN_MENU_OPTION_PURCHASE)) {
+					boolean isInPurchase = true;
 					activeMenu = PURCHASE_MENU_OPTIONS;
+					while (isInPurchase) {
+
+						if (userChoice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
+							activeMenu = DEPOSIT_MENU_OPTIONS;
+						} else if (userChoice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
+							Slot slotValue = snackMaster3000.getSlotMap().get(getUserInput(snackMaster3000.slotMap));
+							snackMaster3000.displayItems();
+						}
+					}
 					// do purchase
 				} else if (userChoice.equals(MAIN_MENU_OPTION_EXIT)) {
 					snackMaster3000.makeChange(snackMaster3000.getBalance());
 					System.out.println(snackMaster3000.getExitDialogue());
 					exit(1);
-				} else if (userChoice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
-					activeMenu = DEPOSIT_MENU_OPTIONS;
-				} else if (userChoice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
-					Slot slotValue = snackMaster3000.getSlotMap().get(getUserInput(snackMaster3000.slotMap));
-					snackMaster3000.displayItems();
+				}
+
 
 
 
@@ -99,7 +106,8 @@ public class VendingMachineCLI {
 					//print without ln for multiple uses. Put version for each purchase option
 					//return to main menu
 				} else if (userChoice.equals(DEPOSIT_MENU_OPTION_ONE)) {
-					transactionLog.println(snackMaster3000.takeMoney(1));
+					snackMaster3000.takeMoney(1);
+
 					// transactionLog.flush();
 				}
 			}

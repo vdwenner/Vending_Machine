@@ -12,6 +12,7 @@ import static java.lang.System.nanoTime;
 
 public class VendingMachine {
     public TreeMap<String, Slot> slotMap = new TreeMap<>();
+    public Logger logger = new Logger();
     LocalDateTime timeInfo = LocalDateTime.now();
     public int balance = 0;
     public String exitDialogue = "Thank you for your purchase! Have an amazing day!";
@@ -98,10 +99,11 @@ public class VendingMachine {
 
     }
 
-    public String takeMoney(int deposit){
+    public void takeMoney(int deposit){
         balance += (deposit * 100);
         String feedMoneyLog = timeInfo + "FEED MONEY:" + deposit;
-        return feedMoneyLog;
+        logger.writeToFile(feedMoneyLog);
+
     }
 
     public void getVendingInfo () {
