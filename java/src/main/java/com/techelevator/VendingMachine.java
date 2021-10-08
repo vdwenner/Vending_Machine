@@ -1,6 +1,7 @@
 package com.techelevator;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -11,6 +12,7 @@ import static java.lang.System.nanoTime;
 
 public class VendingMachine {
     public TreeMap<String, Slot> slotMap = new TreeMap<>();
+    LocalDateTime timeInfo = LocalDateTime.now();
     public int balance = 0;
     public String exitDialogue = "Thank you for your purchase! Have an amazing day!";
 
@@ -96,9 +98,10 @@ public class VendingMachine {
 
     }
 
-    public void takeMoney(int deposit){
-
+    public String takeMoney(int deposit){
         balance += (deposit * 100);
+        String feedMoneyLog = timeInfo + "FEED MONEY:" + deposit;
+        return feedMoneyLog;
     }
 
     public void getVendingInfo () {
@@ -132,6 +135,13 @@ public class VendingMachine {
             //ordered Map like TreeMap to make it ordered
         }
             return info;
+        }
+
+        public String showBalance(int balance){
+            Double balanceAsDouble = (double) balance;
+            balanceAsDouble = balanceAsDouble / 100.00;
+            String balanceAsString = "$" + String.format("%.2f",balanceAsDouble);
+            System.out.println(balanceAsString);
         }
 
 

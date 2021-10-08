@@ -14,6 +14,7 @@ import static java.lang.System.exit;
 import static java.lang.System.setOut;
 
 public class VendingMachineCLI {
+//	public String currentBalance =
 	//main options
 	private static final String MAIN_MENU_OPTION_DISPLAY_ITEMS = "Display Vending Machine Items";
 	private static final String MAIN_MENU_OPTION_PURCHASE = "Purchase";
@@ -44,6 +45,8 @@ public class VendingMachineCLI {
 	public void run() {
 		VendingMachine snackMaster3000 = new VendingMachine();
 		snackMaster3000.getVendingInfo();
+		String balanceLine = "";
+		//need to show option every option every time main menu is accessed.
 		String[] activeMenu = MAIN_MENU_OPTIONS;
 		while (true) {
 			File log = new File("log.txt");
@@ -62,10 +65,7 @@ public class VendingMachineCLI {
 					System.out.println(snackMaster3000.getExitDialogue());
 					exit(1);
 				} else if (userChoice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
-					String depositAsString = (String) menu.getChoiceFromOptions(DEPOSIT_MENU_OPTIONS);
-					Integer deposit = Integer.parseInt(depositAsString);
-					snackMaster3000.takeMoney(deposit);
-					purchaseLog.println(timeInfo + "FEED MONEY:" + deposit);
+					activeMenu = DEPOSIT_MENU_OPTIONS;
 				} else if (userChoice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
 					Slot slotValue = snackMaster3000.getSlotMap().get(getUserInput(snackMaster3000.slotMap));
 					snackMaster3000.displayItems();
@@ -96,7 +96,8 @@ public class VendingMachineCLI {
 					//print without ln for multiple uses. Put version for each purchase option
 					//return to main menu
 				} else if (userChoice.equals(DEPOSIT_MENU_OPTION_ONE)) {
-					snackMaster3000.setBalance(snackMaster3000.getBalance() + 100);
+					purchaseLog.println(snackMaster3000.takeMoney(1));
+
 				}
 			}
 			catch (FileNotFoundException e){
