@@ -149,19 +149,19 @@ public class VendingMachine {
 
     public void selectProduct(String slotName) {
     Slot slotValue = slotMap.get(slotName);
-        if (!slotMap.entrySet().contains(slotValue)) { //if people put in a slot that doesn't exist
+        if (!slotMap.keySet().contains(slotName)) { //if people put in a slot that doesn't exist
             System.out.println("That slot does not exist.");
             //return to purchasing menu
         } else {
-            if (slotMap.get(slotValue).getQuantity() == 0) {
+            if (slotValue.getQuantity() == 0) {
                 System.out.println("OUT OF STOCK");
                 //return to purchase menu
             }
-            if (balance >= slotMap.get(slotValue).getPrice()) {
-                System.out.println(slotMap.get(slotValue).getPhrase());
-                setBalance(balance - slotMap.get(slotValue).getPrice());
+            if (balance >= slotValue.getPrice()) {
+                System.out.println(slotValue.getPhrase());
+                setBalance(balance - slotValue.getPrice());
                 //add a comma
-                logger.writeToFile(timeInfo + slotMap.get(slotValue).getBrandName() + " " + slotMap.get(slotValue).getIdentifier() + " " + slotMap.get(slotValue).getPrice());
+                logger.writeToFile(timeInfo + slotValue.getBrandName() + " " + slotValue.getIdentifier() + " " + slotValue.getPrice());
                 //print without ln for multiple uses. Put version for each purchase option
             }
 

@@ -66,9 +66,9 @@ public class VendingMachineCLI {
 							int feedMoneyOption = getFeedMoneyAmount();
 							snackMaster3000.takeMoney(feedMoneyOption);
 						} else if (secondUserChoice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
-							String slotValue = getUserInput(snackMaster3000.getSlotMap());
 							snackMaster3000.displayItems();
-							snackMaster3000.selectProduct(slotValue);
+							String slotName = getUserInput(snackMaster3000.getSlotMap());
+							snackMaster3000.selectProduct(slotName);
 
 						}
 						else if (secondUserChoice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)) {
@@ -99,8 +99,8 @@ public class VendingMachineCLI {
 	public String getUserInput(TreeMap<String, Slot> slotMap){
 		String [] options = slotMap.keySet().toArray(new String[slotMap.size()]);
 		System.out.println("Please choose slot number: ");
-		String userInput = (String) menu.getChoiceFromOptions(options);
-		return userInput;
+		String slotName = (String) menu.getChoiceFromOptions(options);
+		return slotName;
 	}
 
 	public int getFeedMoneyAmount(){
