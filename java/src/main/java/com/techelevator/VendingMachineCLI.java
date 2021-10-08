@@ -93,10 +93,8 @@ public class VendingMachineCLI {
 					}
 
 				} else if (userChoice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)) {
-					int[] coinsGiven = snackMaster3000.makeChange(snackMaster3000.getBalance());
-					//how to format
-					purchaseLog.println(timeInfo + "GIVE CHANGE:" );
-							//+ snackMaster3000.makeChange());
+					String coinsGiven = snackMaster3000.makeChange(snackMaster3000.getBalance());
+					purchaseLog.println(timeInfo + "GIVE CHANGE:" + coinsGiven);
 					//print without ln for multiple uses. Put version for each purchase option
 					//return to main menu
 				}

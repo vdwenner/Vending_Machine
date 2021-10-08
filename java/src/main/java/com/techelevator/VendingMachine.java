@@ -33,7 +33,7 @@ public class VendingMachine {
 
 
 
-    public int[] makeChange(int balance){
+    public String makeChange(int balance){
         int nickel = 5;
         int dime = 10;
         int quarter = 25;
@@ -66,9 +66,29 @@ public class VendingMachine {
         }
         numberOfNickels = numberOfCoins;
         numberOfPennies = balance;
-        int[] coinsChange = new int[]{numberOfQuarters, numberOfDimes, numberOfNickels, numberOfPennies};
-        balance = 0;
-        return coinsChange;
+        int[] totalCoinsArray = new int[]{numberOfQuarters, numberOfDimes, numberOfNickels, numberOfPennies};
+        String[] coinNamesArray = new String[]{"quarter", "dime", "nickel", "penny", "quarters", "dimes", "nickels", "pennies"};
+        String changeAsString = "";
+        int firstCoin = 0;
+        for (int i = 0; i < totalCoinsArray.length; i++){
+            // length - 1?
+            if (totalCoinsArray[i] > 0){
+                firstCoin++;
+                if (firstCoin > 0){
+                    changeAsString = changeAsString + ", ";
+                }
+                changeAsString = changeAsString + totalCoinsArray[i];
+                        if (totalCoinsArray[i] > 1){
+                            changeAsString = changeAsString + " " + coinNamesArray[i + 4];
+                        }
+                        else {
+                            changeAsString = changeAsString + " " + coinNamesArray[i];
+                        }
+            }
+        }
+
+
+        return changeAsString;
 
     }
 
