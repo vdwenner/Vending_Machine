@@ -46,12 +46,15 @@ public class VendingMachineCLI {
 		VendingMachine snackMaster3000 = new VendingMachine();
 		snackMaster3000.getVendingInfo();
 		String balanceLine = "";
-		//need to show option every option every time main menu is accessed.
+		//need to show balance line every time anything but main menu is accessed.
 		String[] activeMenu = MAIN_MENU_OPTIONS;
 		while (true) {
 			File log = new File("log.txt");
-			try (PrintWriter purchaseLog = new PrintWriter("log.txt");) {
+			try (PrintWriter transactionLog = new PrintWriter("log.txt");) {
 				String userChoice = (String) menu.getChoiceFromOptions(activeMenu);
+				if (activeMenu != MAIN_MENU_OPTIONS){
+					snackMaster3000.showBalance(snackMaster3000.getBalance()));
+				}
 				LocalDateTime timeInfo = LocalDateTime.now();
 
 				if (userChoice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
@@ -86,18 +89,18 @@ public class VendingMachineCLI {
 						System.out.println(slotValue.getPhrase());
 						snackMaster3000.setBalance(snackMaster3000.getBalance() - slotValue.getPrice());
 						//add a comma
-						purchaseLog.println(timeInfo + slotValue.getBrandName() + " " + slotValue.getIdentifier() + " " + slotValue.getPrice());
+						transactionLog.println(timeInfo + slotValue.getBrandName() + " " + slotValue.getIdentifier() + " " + slotValue.getPrice());
 						//print without ln for multiple uses. Put version for each purchase option
 					}
 
 				} else if (userChoice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)) {
 					String coinsGiven = snackMaster3000.makeChange(snackMaster3000.getBalance());
-					purchaseLog.println(timeInfo + "GIVE CHANGE:" + coinsGiven);
+					transactionLog.println(timeInfo + "GIVE CHANGE:" + coinsGiven);
 					//print without ln for multiple uses. Put version for each purchase option
 					//return to main menu
 				} else if (userChoice.equals(DEPOSIT_MENU_OPTION_ONE)) {
-					purchaseLog.println(snackMaster3000.takeMoney(1));
-
+					transactionLog.println(snackMaster3000.takeMoney(1));
+					// transactionLog.flush();
 				}
 			}
 			catch (FileNotFoundException e){

@@ -127,13 +127,13 @@ public class VendingMachine {
 
         public String displayItems(){
         String info = "";
-        for(Map.Entry<String, Slot> element: slotMap.entrySet()){
-            info = info  + "\n" + element.getValue().getIdentifier();
+        for(Map.Entry<String, Slot> element: slotMap.entrySet()) {
+            info = info + "\n" + element.getValue().getIdentifier();
             info = info + ", " + element.getValue().getBrandName();
             info = info + ", " + element.getValue().getPrice();
             info = info + ", " + element.getValue().getQuantity();
-            //ordered Map like TreeMap to make it ordered
         }
+            //ordered Map like TreeMap to make it ordered
             return info;
         }
 
@@ -141,7 +141,7 @@ public class VendingMachine {
             Double balanceAsDouble = (double) balance;
             balanceAsDouble = balanceAsDouble / 100.00;
             String balanceAsString = "$" + String.format("%.2f",balanceAsDouble);
-            System.out.println(balanceAsString);
+            return balanceAsString;
         }
 
 
