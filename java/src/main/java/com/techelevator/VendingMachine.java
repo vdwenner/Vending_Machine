@@ -104,7 +104,7 @@ public class VendingMachine {
 
     public void takeMoney(int deposit){
         balance += (deposit);
-        String feedMoneyLog = timeInfo + " " + "FEED MONEY: " + deposit + "\n";
+        String feedMoneyLog = timeInfo + " " + "FEED MONEY: " + deposit;
         logger.writeToFile(feedMoneyLog);
 
     }

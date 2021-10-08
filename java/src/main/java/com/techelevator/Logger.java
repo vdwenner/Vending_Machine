@@ -17,11 +17,12 @@ public class Logger {
     public void writeToFile (String message) {
         createFile();
         try (PrintWriter transactionLog = new PrintWriter(new FileOutputStream(log, true))){
-            transactionLog.append(message);
+            transactionLog.append(message + "\n");
         }
         catch (FileNotFoundException e) {
             System.out.println("Output File Not Found");
             System.exit(404);
         }
     }
+
 }
