@@ -81,10 +81,10 @@ public class Slot {
 
     public String getPhrase(){
         HashMap<String, String> phraseMap = new HashMap<String, String>();
-        phraseMap.put("chip", "Crunch Crunch, Yum!");
-        phraseMap.put("candy", "Munch Munch, Yum!");
-        phraseMap.put("drink", "Glug Glug, Yum!");
-        phraseMap.put("gum", "Chew Chew, Yum!");
+        phraseMap.put("Chip", "Crunch Crunch, Yum!");
+        phraseMap.put("Candy", "Munch Munch, Yum!");
+        phraseMap.put("Drink", "Glug Glug, Yum!");
+        phraseMap.put("Gum", "Chew Chew, Yum!");
         return phraseMap.get(category);
     }
 }

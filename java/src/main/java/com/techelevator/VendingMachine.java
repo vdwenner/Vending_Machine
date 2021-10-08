@@ -31,7 +31,9 @@ public class VendingMachine {
         this.balance = balance;
     }
 
-
+    public void setSlotMap(TreeMap<String, Slot> slotMap) {
+        this.slotMap = slotMap;
+    }
 
     public String makeChange(int balance){
         int nickel = 5;
@@ -122,10 +124,10 @@ public class VendingMachine {
         public String displayItems(){
         String info = "";
         for(Map.Entry<String, Slot> element: slotMap.entrySet()){
-            info = info + element.getValue().getIdentifier();
+            info = info  + "\n" + element.getValue().getIdentifier();
             info = info + ", " + element.getValue().getBrandName();
             info = info + ", " + element.getValue().getPrice();
-            info = info + ", " + element.getValue().getQuantity() + "\n";
+            info = info + ", " + element.getValue().getQuantity();
             //ordered Map like TreeMap to make it ordered
         }
             return info;
