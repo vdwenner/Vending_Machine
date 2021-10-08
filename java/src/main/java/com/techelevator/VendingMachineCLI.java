@@ -62,12 +62,10 @@ public class VendingMachineCLI {
 					System.out.println(snackMaster3000.getExitDialogue());
 					exit(1);
 				} else if (userChoice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
-					//placeholder
 					String depositAsString = (String) menu.getChoiceFromOptions(DEPOSIT_MENU_OPTIONS);
 					Integer deposit = Integer.parseInt(depositAsString);
 					snackMaster3000.takeMoney(deposit);
 					purchaseLog.println(timeInfo + "FEED MONEY:" + deposit);
-					//print without ln for multiple uses. Put version for each purchase option
 				} else if (userChoice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
 					Slot slotValue = snackMaster3000.getSlotMap().get(getUserInput(snackMaster3000.slotMap));
 					snackMaster3000.displayItems();

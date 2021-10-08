@@ -46,13 +46,13 @@ public class VendingMachine {
         int leftOver = 0;
         int coin = quarter;
         int numberOfCoins = 0;
-        int remainingToMakeChange = 0;
         if (balance >= coin){
             leftOver = balance % coin;
             numberOfCoins = (balance - leftOver) / coin;
             balance = balance - (numberOfCoins * coin);
         }
         numberOfQuarters = numberOfCoins;
+        numberOfCoins = 0;
         coin = dime;
         if (balance >= coin){
             leftOver = balance % coin;
@@ -60,6 +60,7 @@ public class VendingMachine {
             balance = balance - (numberOfCoins * coin);
         }
         numberOfDimes = numberOfCoins;
+        numberOfCoins = 0;
         coin = nickel;
         if (balance >= coin){
             leftOver = balance % coin;
@@ -74,11 +75,12 @@ public class VendingMachine {
         int firstCoin = 0;
         for (int i = 0; i < totalCoinsArray.length; i++){
             // length - 1?
+            if (firstCoin > 0 && totalCoinsArray[i] > 0){
+                changeAsString = changeAsString + ", ";
+            }
             if (totalCoinsArray[i] > 0){
                 firstCoin++;
-                if (firstCoin > 0){
-                    changeAsString = changeAsString + ", ";
-                }
+
                 changeAsString = changeAsString + totalCoinsArray[i];
                         if (totalCoinsArray[i] > 1){
                             changeAsString = changeAsString + " " + coinNamesArray[i + 4];
