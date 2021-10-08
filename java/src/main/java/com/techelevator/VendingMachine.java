@@ -92,6 +92,7 @@ public class VendingMachine {
                             changeAsString = changeAsString + " " + coinNamesArray[i];
                         }
             }
+            logger.writeToFile("FED MONEY");
         }
 
 
@@ -100,7 +101,7 @@ public class VendingMachine {
     }
 
     public void takeMoney(int deposit){
-        balance += (deposit * 100);
+        balance += (deposit);
         String feedMoneyLog = timeInfo + "FEED MONEY:" + deposit;
         logger.writeToFile(feedMoneyLog);
 
@@ -146,7 +147,26 @@ public class VendingMachine {
             return balanceAsString;
         }
 
+    public void selectProduct(String slotName) {
+    Slot slotValue = slotMap.get(slotName);
+        if (!slotMap.entrySet().contains(slotValue)) { //if people put in a slot that doesn't exist
+            System.out.println("That slot does not exist.");
+            //return to purchasing menu
+        } else {
+            if (slotMap.get(slotValue).getQuantity() == 0) {
+                System.out.println("OUT OF STOCK");
+                //return to purchase menu
+            }
+            if (balance >= slotMap.get(slotValue).getPrice()) {
+                System.out.println(slotMap.get(slotValue).getPhrase());
+                setBalance(balance - slotMap.get(slotValue).getPrice());
+                //add a comma
+                logger.writeToFile(timeInfo + slotMap.get(slotValue).getBrandName() + " " + slotMap.get(slotValue).getIdentifier() + " " + slotMap.get(slotValue).getPrice());
+                //print without ln for multiple uses. Put version for each purchase option
+            }
 
+        }
+    }
 
 
 
