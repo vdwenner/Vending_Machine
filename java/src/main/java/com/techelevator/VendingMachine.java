@@ -97,12 +97,11 @@ public class VendingMachine {
     }
 
     public void takeMoney(int deposit){
+
         balance += (deposit * 100);
     }
 
     public void getVendingInfo () {
-
-
 
         File vendingFile = new File("vendingmachine.csv");
         try (Scanner fileInput = new Scanner(vendingFile)){

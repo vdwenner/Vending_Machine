@@ -32,6 +32,23 @@ public void makeChange_should_give_8_quarters_and_2_pennies_when_202_is_passed()
 
         }
 
+        @Test
+        public void getVendingInfo_should_give_brand_name_cowtales_for_b2_when_file_is_read(){
+            testMachine.getVendingInfo();
+            String actualResult = testMachine.getSlotMap().get("B2").getBrandName();
+            Slot testSlot = new Slot ("B2", "Cowtales", "Candy", 150);
+            String expectedResult = testSlot.getBrandName();
+            Assert.assertEquals(expectedResult,actualResult);
+        }
+
+        @Test
+        public void takeMoney_should_add_five_hundred_if_five_dollars_is_deposited(){
+            testMachine.takeMoney(5);
+            int actualResult = testMachine.getBalance();
+            int expectedResult = 500;
+            Assert.assertEquals(expectedResult,actualResult);
+        }
+
 
 }
 
