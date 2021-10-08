@@ -4,17 +4,18 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 import static java.lang.System.exit;
 import static java.lang.System.nanoTime;
 
 public class VendingMachine {
-    public HashMap<String, Slot> slotMap = new HashMap<>();
+    public TreeMap<String, Slot> slotMap = new TreeMap<>();
     public int balance = 0;
     public String exitDialogue = "Thank you for your purchase! Have an amazing day!";
 
 
-    public HashMap<String, Slot> getSlotMap() {
+    public TreeMap<String, Slot> getSlotMap() {
         return slotMap;
     }
 

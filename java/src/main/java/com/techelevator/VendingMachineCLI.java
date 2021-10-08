@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 import static java.lang.System.exit;
 import static java.lang.System.setOut;
@@ -74,7 +75,8 @@ public class VendingMachineCLI {
 
 
 
-					if (!snackMaster3000.getSlotMap().entrySet().contains(slotValue)) { //if people put in a slot that doesnt exist
+
+					if (!snackMaster3000.getSlotMap().entrySet().contains(slotValue)) { //if people put in a slot that doesn't exist
 						System.out.println("That slot does not exist.");
 						//return to purchasing menu
 					}
@@ -112,7 +114,7 @@ public class VendingMachineCLI {
 		cli.run();
 	}
 
-	public String getUserInput(HashMap<String, Slot> slotMap){
+	public String getUserInput(TreeMap<String, Slot> slotMap){
 		String [] options = slotMap.keySet().toArray(new String[slotMap.size()]);
 		System.out.println("Please choose slot number: ");
 		String userInput = (String) menu.getChoiceFromOptions(options);
