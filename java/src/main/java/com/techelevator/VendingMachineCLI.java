@@ -97,6 +97,8 @@ public class VendingMachineCLI {
 					purchaseLog.println(timeInfo + "GIVE CHANGE:" + coinsGiven);
 					//print without ln for multiple uses. Put version for each purchase option
 					//return to main menu
+				} else if (userChoice.equals(DEPOSIT_MENU_OPTION_ONE)) {
+					snackMaster3000.setBalance(snackMaster3000.getBalance() + 100);
 				}
 			}
 			catch (FileNotFoundException e){
