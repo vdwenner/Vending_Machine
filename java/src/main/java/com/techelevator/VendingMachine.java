@@ -2,19 +2,22 @@ package com.techelevator;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 
-import static java.lang.System.exit;
-import static java.lang.System.nanoTime;
+import static java.lang.System.*;
 
 public class VendingMachine {
     public TreeMap<String, Slot> slotMap = new TreeMap<>();
-    LocalDateTime timeInfo = LocalDateTime.now();
+    public Logger logger = new Logger();
     public int balance = 0;
     public String exitDialogue = "Thank you for your purchase! Have an amazing day!";
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
+    String timeInfo = LocalDateTime.now().format(formatter);
 
 
     public TreeMap<String, Slot> getSlotMap() {
@@ -91,6 +94,7 @@ public class VendingMachine {
                             changeAsString = changeAsString + " " + coinNamesArray[i];
                         }
             }
+            logger.writeToFile("FED MONEY");
         }
 
 
@@ -98,10 +102,11 @@ public class VendingMachine {
 
     }
 
-    public String takeMoney(int deposit){
-        balance += (deposit * 100);
-        String feedMoneyLog = timeInfo + "FEED MONEY:" + deposit;
-        return feedMoneyLog;
+    public void takeMoney(int deposit){
+        balance += (deposit);
+        String feedMoneyLog = timeInfo + " " + "FEED MONEY: " + deposit + "\n";
+        logger.writeToFile(feedMoneyLog);
+
     }
 
     public void getVendingInfo () {
@@ -131,20 +136,46 @@ public class VendingMachine {
             info = info + "\n" + element.getValue().getIdentifier();
             info = info + ", " + element.getValue().getBrandName();
             info = info + ", " + element.getValue().getPrice();
-            info = info + ", " + element.getValue().getQuantity();
+            if (element.getValue().getQuantity() == 0){
+                info = info + ", " + "SOLD OUT";
+            }
+            else {
+                info = info + ", " + element.getValue().getQuantity();
+            }
         }
             //ordered Map like TreeMap to make it ordered
             return info;
         }
 
-        public String showBalance(int balance){
-            Double balanceAsDouble = (double) balance;
-            balanceAsDouble = balanceAsDouble / 100.00;
-            String balanceAsString = "$" + String.format("%.2f",balanceAsDouble);
-            return balanceAsString;
+        public String showAsDollars(int pennyMath){
+            Double dollarMath = (double) pennyMath;
+            dollarMath = dollarMath / 100.00;
+            String stringMath = "$" + String.format("%.2f",dollarMath);
+            return stringMath;
         }
 
+    public void selectProduct(String slotName) {
+    Slot slotValue = slotMap.get(slotName);
+        if (!slotMap.keySet().contains(slotName)) { //if people put in a slot that doesn't exist
+            System.out.println("That slot does not exist.");
+            //return to purchasing menu
+        } else {
+            if (slotValue.getQuantity() == 0) {
+                System.out.println("OUT OF STOCK");
+                //return to purchase menu
+            }
+            if (balance >= slotValue.getPrice()) {
+                out.println(slotValue.getBrandName() + " " + showAsDollars(slotValue.getPrice()));
+                System.out.println(slotValue.getPhrase());
+                setBalance(balance - slotValue.getPrice());
+                slotValue.setQuantity(slotValue.getQuantity() - 1);
+                //add a comma
+                logger.writeToFile(timeInfo + slotValue.getBrandName() + " " + slotValue.getIdentifier() + " " + slotValue.getPrice());
+                //print without ln for multiple uses. Put version for each purchase option
+            }
 
+        }
+    }
 
 
 

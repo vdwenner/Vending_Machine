@@ -47,68 +47,52 @@ public class VendingMachineCLI {
 		snackMaster3000.getVendingInfo();
 		String balanceLine = "";
 		//need to show balance line every time anything but main menu is accessed.
-		String[] activeMenu = MAIN_MENU_OPTIONS;
+
 		while (true) {
-			File log = new File("log.txt");
-			try (PrintWriter transactionLog = new PrintWriter("log.txt");) {
-				String userChoice = (String) menu.getChoiceFromOptions(activeMenu);
-				if (activeMenu != MAIN_MENU_OPTIONS){
-					snackMaster3000.showBalance(snackMaster3000.getBalance()));
-				}
+
+				String userChoice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
+
 				LocalDateTime timeInfo = LocalDateTime.now();
 
 				if (userChoice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 					// display vending machine items
 					System.out.println(snackMaster3000.displayItems());
 				} else if (userChoice.equals(MAIN_MENU_OPTION_PURCHASE)) {
-					activeMenu = PURCHASE_MENU_OPTIONS;
+					boolean isInPurchase = true;
+
+					while (isInPurchase
+					) {
+						System.out.println("Current Money Provided: " + snackMaster3000.showAsDollars(snackMaster3000.getBalance()));
+						String secondUserChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
+						if (secondUserChoice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
+							int feedMoneyOption = getFeedMoneyAmount();
+							snackMaster3000.takeMoney(feedMoneyOption);
+						} else if (secondUserChoice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
+							snackMaster3000.displayItems();
+							String slotName = getUserInput(snackMaster3000.getSlotMap());
+							snackMaster3000.selectProduct(slotName);
+
+						}
+						else if (secondUserChoice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)) {
+							String coinsGiven = snackMaster3000.makeChange(snackMaster3000.getBalance());
+							System.out.println(coinsGiven);
+							snackMaster3000.setBalance(0);
+							isInPurchase = false;
+							//print without ln for multiple uses. Put version for each purchase option
+							//return to main menu
+						}
+					}
 					// do purchase
 				} else if (userChoice.equals(MAIN_MENU_OPTION_EXIT)) {
 					snackMaster3000.makeChange(snackMaster3000.getBalance());
 					System.out.println(snackMaster3000.getExitDialogue());
 					exit(1);
-				} else if (userChoice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
-					activeMenu = DEPOSIT_MENU_OPTIONS;
-				} else if (userChoice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
-					Slot slotValue = snackMaster3000.getSlotMap().get(getUserInput(snackMaster3000.slotMap));
-					snackMaster3000.displayItems();
+				}
 
-
-
-
-
-					if (!snackMaster3000.getSlotMap().entrySet().contains(slotValue)) { //if people put in a slot that doesn't exist
-						System.out.println("That slot does not exist.");
-						//return to purchasing menu
-					}
-					if (slotValue.getQuantity() == 0) {
-						System.out.println("OUT OF STOCK");
-						//return to purchase menu
-					}
-					if (snackMaster3000.getBalance() >= slotValue.getPrice()) {
-						System.out.println(slotValue.getPhrase());
-						snackMaster3000.setBalance(snackMaster3000.getBalance() - slotValue.getPrice());
-						//add a comma
-						transactionLog.println(timeInfo + slotValue.getBrandName() + " " + slotValue.getIdentifier() + " " + slotValue.getPrice());
-						//print without ln for multiple uses. Put version for each purchase option
-					}
-
-				} else if (userChoice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)) {
-					String coinsGiven = snackMaster3000.makeChange(snackMaster3000.getBalance());
-					transactionLog.println(timeInfo + "GIVE CHANGE:" + coinsGiven);
-					//print without ln for multiple uses. Put version for each purchase option
-					//return to main menu
-				} else if (userChoice.equals(DEPOSIT_MENU_OPTION_ONE)) {
-					transactionLog.println(snackMaster3000.takeMoney(1));
 					// transactionLog.flush();
 				}
-			}
-			catch (FileNotFoundException e){
-				System.out.println("Log file was not found.");
-				System.exit(1);
-			}
+
 		}
-	}
 
 	public static void main(String[] args) {
 		Menu menu = new Menu(System.in, System.out);
@@ -119,8 +103,21 @@ public class VendingMachineCLI {
 	public String getUserInput(TreeMap<String, Slot> slotMap){
 		String [] options = slotMap.keySet().toArray(new String[slotMap.size()]);
 		System.out.println("Please choose slot number: ");
-		String userInput = (String) menu.getChoiceFromOptions(options);
-		return userInput;
+		String slotName = (String) menu.getChoiceFromOptions(options);
+		return slotName;
 	}
 
-}
+	public int getFeedMoneyAmount(){
+		System.out.println("Please choose an amount: 1, 2, 5, 10: ");
+		String userInput = (String) menu.getChoiceFromOptions(DEPOSIT_MENU_OPTIONS);
+		if (userInput.equals(DEPOSIT_MENU_OPTION_ONE)){
+			return 100;
+		} else if (userInput.equals(DEPOSIT_MENU_OPTION_TWO)){
+			return 200;
+		} else if (userInput.equals(DEPOSIT_MENU_OPTION_FIVE)){
+			return 500;
+		} else if (userInput.equals(DEPOSIT_MENU_OPTION_TEN)){
+			return 1000;
+		} return 0;
+	}
+		}
