@@ -2,8 +2,8 @@ package com.techelevator;
 
 import java.io.*;
 
-public class Logger {
-    private File log = new File("log.txt");
+public class SalesLogger {
+    private File log = new File("salesreport.txt");
 
     private void createFile(){
         try {

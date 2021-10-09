@@ -11,7 +11,8 @@ import static java.lang.System.*;
 
 public class VendingMachine {
     public TreeMap<String, Slot> slotMap = new TreeMap<>();
-    public Logger logger = new Logger();
+    public EverythingLogger everythingLogger = new EverythingLogger();
+    public SalesLogger salesLogger = new SalesLogger();
     public int balance = 0;
     public String exitDialogue = "Thank you for your purchase! Have an amazing day!";
 
@@ -74,8 +75,10 @@ public class VendingMachine {
 
         String timeInfo = LocalDateTime.now().format(formatter);
         String makeChangeLog = timeInfo + " " + "GIVE CHANGE: " + showAsDollars(balanceBeforeChange) + " " + showAsDollars(balance);
-        logger.writeToFile(makeChangeLog);
-        return changeAsString;
+        everythingLogger.writeToFile(makeChangeLog);
+        String changeDialogue = "You receive " + changeAsString + ".";
+
+        return changeDialogue;
     }
 
 
@@ -90,7 +93,7 @@ public class VendingMachine {
         }
         String timeInfo = LocalDateTime.now().format(formatter);
         String feedMoneyLog = timeInfo + " " + "FEED MONEY: " + showAsDollars(whichBalanceForFirst) + " " + showAsDollars(balance);
-        logger.writeToFile(feedMoneyLog);
+        everythingLogger.writeToFile(feedMoneyLog);
     }
 
     public void getVendingInfo () {
@@ -152,8 +155,10 @@ public class VendingMachine {
                 System.out.println(slotValue.getPhrase());
                 setBalance(balance - slotValue.getPrice());
                 slotValue.setQuantity(slotValue.getQuantity() - 1);
-                logger.writeToFile(timeInfo + " " + slotValue.getBrandName() + " " + slotValue.getIdentifier() + " "
-                            + showAsDollars(balance + slotValue.getPrice()) + " " + showAsDollars(balance));
+                String logLine = timeInfo + " " + slotValue.getBrandName() + " " + slotValue.getIdentifier() + " "
+                        + showAsDollars(balance + slotValue.getPrice()) + " " + showAsDollars(balance);
+                everythingLogger.writeToFile(logLine);
+                salesLogger.writeToFile(logLine);
                 }
                 //print without ln for multiple uses. Put version for each purchase option
             }
@@ -161,9 +166,9 @@ public class VendingMachine {
 
     public void displaySalesReport() {
         File salesFile = new File("salesreport.txt");
-        try (Scanner fileInput = new Scanner(salesFile)){
-            while(fileInput.hasNextLine()) {
-                String line = fileInput.nextLine();
+        try (Scanner salesInput = new Scanner(salesFile)){
+            while(salesInput.hasNextLine()) {
+                String line = salesInput.nextLine();
                 if ((line != null) && (!line.isEmpty())) {
                     String[] parts = line.split("\\|");
                     out.println(parts);

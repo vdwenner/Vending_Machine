@@ -66,8 +66,8 @@ public class VendingMachineCLI {
 						}
 						// do purchase
 						else if (secondUserChoice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)) {
-							String coinsGiven = snackMaster3000.makeChange(snackMaster3000.getBalance());
-							System.out.println(coinsGiven);
+							String changeMessage = snackMaster3000.makeChange(snackMaster3000.getBalance());
+							System.out.println(changeMessage);
 							snackMaster3000.setBalance(0);
 							isInPurchase = false;
 							//return to main menu
