@@ -1,4 +1,3 @@
-
 #ignore thumbnails created by windows
 Thumbs.db
 #Ignore files build by Visual Studio
@@ -27,40 +26,34 @@ bin/
 obj/
 packages/
 .vs/
-
 .DS_Store
 node_modules
 /dist
-
 # Add any directories, files, or patterns you don't want to be tracked by version control
-
 # Eclipse
 .classpath
 .project
 .settings
 target/
-
 ### IntelliJ IDEA ###
 .idea
 *.iws
 *.iml
 *.ipr
-
 # .NET
 obj/
 bin/
 .vs/
 *.user
-
 # local env files
 .env.local
 .env.*.local
-
 # Log files
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
+log.txt
+salesreport.txt
 # Editor directories and files
 .idea
 .vscode
@@ -69,8 +62,6 @@ yarn-error.log*
 *.njsproj
 *.sw*
 *.jfm
-
-
 # Cypress e2e Testing
 cypress/screenshots
 cypress/videos
