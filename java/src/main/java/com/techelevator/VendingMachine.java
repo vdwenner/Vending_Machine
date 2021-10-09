@@ -159,5 +159,22 @@ public class VendingMachine {
             }
         }
 
+    public void displaySalesReport() {
+        File salesFile = new File("salesreport.txt");
+        try (Scanner fileInput = new Scanner(salesFile)){
+            while(fileInput.hasNextLine()) {
+                String line = fileInput.nextLine();
+                if ((line != null) && (!line.isEmpty())) {
+                    String[] parts = line.split("\\|");
+                    out.println(parts);
+                }
+            }
+        }
+        catch (FileNotFoundException e){
+            System.out.println("File not found, please try again.");
+            exit(1);
+        }
+    }
+
 
 }

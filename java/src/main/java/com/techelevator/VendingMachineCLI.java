@@ -2,7 +2,10 @@ package com.techelevator;
 
 import com.techelevator.view.Menu;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
+import java.util.Scanner;
 import java.util.TreeMap;
 
 import static java.lang.System.exit;
@@ -73,6 +76,8 @@ public class VendingMachineCLI {
 				} else if (userChoice.equals(MAIN_MENU_OPTION_EXIT)) {
 					System.out.println(snackMaster3000.getExitDialogue());
 					exit(1);
+				} else if (userChoice.equals(4)){
+					snackMaster3000.displaySalesReport();
 				}
 		}
 
