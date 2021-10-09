@@ -9,7 +9,6 @@ import static java.lang.System.exit;
 import static java.lang.System.setOut;
 
 public class VendingMachineCLI {
-//	public String currentBalance =
 	//main options
 	private static final String MAIN_MENU_OPTION_DISPLAY_ITEMS = "Display Vending Machine Items";
 	private static final String MAIN_MENU_OPTION_PURCHASE = "Purchase";
@@ -40,24 +39,19 @@ public class VendingMachineCLI {
 	public void run() {
 		VendingMachine snackMaster3000 = new VendingMachine();
 		snackMaster3000.getVendingInfo();
-		String balanceLine = "";
-		//need to show balance line every time anything but main menu is accessed.
 
 		while (true) {
-
 				String userChoice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
-
-				LocalDateTime timeInfo = LocalDateTime.now();
 
 				if (userChoice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 					// display vending machine items
 					System.out.println(snackMaster3000.displayItems());
 				} else if (userChoice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 					boolean isInPurchase = true;
-
 					while (isInPurchase
 					) {
 						System.out.println("Current Money Provided: " + snackMaster3000.showAsDollars(snackMaster3000.getBalance()));
+						//need to show balance line every time anything but main menu is accessed.
 						String secondUserChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
 						if (secondUserChoice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
 							int feedMoneyOption = getFeedMoneyAmount();
@@ -66,27 +60,23 @@ public class VendingMachineCLI {
 							snackMaster3000.displayItems();
 							String slotName = getUserInput(snackMaster3000.getSlotMap());
 							snackMaster3000.selectProduct(slotName);
-
 						}
+						// do purchase
 						else if (secondUserChoice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)) {
 							String coinsGiven = snackMaster3000.makeChange(snackMaster3000.getBalance());
 							System.out.println(coinsGiven);
 							snackMaster3000.setBalance(0);
 							isInPurchase = false;
-							//print without ln for multiple uses. Put version for each purchase option
 							//return to main menu
 						}
 					}
-					// do purchase
 				} else if (userChoice.equals(MAIN_MENU_OPTION_EXIT)) {
 					System.out.println(snackMaster3000.getExitDialogue());
 					exit(1);
 				}
-
-					// transactionLog.flush();
-				}
-
 		}
+
+	}
 
 	public static void main(String[] args) {
 		Menu menu = new Menu(System.in, System.out);
@@ -114,4 +104,6 @@ public class VendingMachineCLI {
 			return 1000;
 		} return 0;
 	}
-		}
+
+
+}
