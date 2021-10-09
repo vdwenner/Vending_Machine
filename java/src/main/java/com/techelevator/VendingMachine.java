@@ -40,6 +40,7 @@ public class VendingMachine {
     }
 
     public String makeChange(int balance){
+        int balanceBeforeChange = balance;
         int[] coinValue = new int[]{25, 10, 5, 1};
         int[] totalCoinsArray = new int[]{0, 0, 0, 0};
         int leftOver = 0;
@@ -70,18 +71,28 @@ public class VendingMachine {
                             changeAsString = changeAsString + " " + coinNamesArray[i];
                         }
             }
-            logger.writeToFile("FED MONEY");
         }
 
-
+        String timeInfo = LocalDateTime.now().format(formatter);
+        String makeChangeLog = timeInfo + " " + "GIVE CHANGE: " + showAsDollars(balanceBeforeChange) + " " + showAsDollars(balance);
+        logger.writeToFile(makeChangeLog);
         return changeAsString;
 
     }
 
+
     public void takeMoney(int deposit){
-        balance += (deposit);
+
+        balance += deposit;
+        int whichBalanceForFirst = 0;
+        if (balance == 0) {
+            whichBalanceForFirst = balance;
+        }
+        else {
+            whichBalanceForFirst = balance - deposit;
+        }
         String timeInfo = LocalDateTime.now().format(formatter);
-        String feedMoneyLog = timeInfo + " " + "FEED MONEY: " + deposit;
+        String feedMoneyLog = timeInfo + " " + "FEED MONEY: " + showAsDollars(whichBalanceForFirst) + " " + showAsDollars(balance);
         logger.writeToFile(feedMoneyLog);
 
     }
@@ -112,12 +123,12 @@ public class VendingMachine {
         for(Map.Entry<String, Slot> element: slotMap.entrySet()) {
             info = info + "\n" + element.getValue().getIdentifier();
             info = info + ", " + element.getValue().getBrandName();
-            info = info + ", " + element.getValue().getPrice();
+            info = info + ", " + showAsDollars(element.getValue().getPrice());
             if (element.getValue().getQuantity() == 0){
                 info = info + ", " + "SOLD OUT";
             }
             else {
-                info = info + ", " + element.getValue().getQuantity();
+                info = info + ", " + element.getValue().getQuantity() + " in stock";
             }
         }
             //ordered Map like TreeMap to make it ordered
@@ -130,6 +141,16 @@ public class VendingMachine {
             String stringMath = "$" + String.format("%.2f",dollarMath);
             return stringMath;
         }
+
+ //       public String dollarString(int pennyMath) {
+//add a comma
+//                if (showAsDollars((balance + slotValue.getPrice())) >= 1000) {
+//                    Integer beforePurchaseValue = (balance + slotValue.getPrice());
+//                    String pennyAmountAsString = Integer.toString(beforePurchaseValue);
+//                    pennyAmountAsString = pennyAmountAsString.substring(pennyAmountAsString.length()-2).;
+//                    String dollarAmountAsString = Integer.toString(beforePurchaseValue);
+//                    dollarAmountAsString = dollarAmountAsString.substring(dollarAmountAsString.length()-4, dollarAmountAsString.length()-3);
+//        }
 
     public void selectProduct(String slotName) {
     Slot slotValue = slotMap.get(slotName);
@@ -147,22 +168,15 @@ public class VendingMachine {
                 System.out.println(slotValue.getPhrase());
                 setBalance(balance - slotValue.getPrice());
                 slotValue.setQuantity(slotValue.getQuantity() - 1);
-                //add a comma
-//                if (showAsDollars((balance + slotValue.getPrice())) >= 1000) {
-//                    Integer beforePurchaseValue = (balance + slotValue.getPrice());
-//                    String pennyAmountAsString = Integer.toString(beforePurchaseValue);
-//                    pennyAmountAsString = pennyAmountAsString.substring(pennyAmountAsString.length()-2).;
-//                    String dollarAmountAsString = Integer.toString(beforePurchaseValue);
-//                    dollarAmountAsString = dollarAmountAsString.substring(dollarAmountAsString.length()-4, dollarAmountAsString.length()-3);
-                    logger.writeToFile(timeInfo + " " + slotValue.getBrandName() + " " + slotValue.getIdentifier() + " "
-                            + showAsDollars((balance + slotValue.getPrice())) + " " + showAsDollars(balance));
+                logger.writeToFile(timeInfo + " " + slotValue.getBrandName() + " " + slotValue.getIdentifier() + " "
+                            + showAsDollars(balance + slotValue.getPrice()) + " " + showAsDollars(balance));
                 }
 
                 //print without ln for multiple uses. Put version for each purchase option
             }
 
         }
-    }
+
 
 
 

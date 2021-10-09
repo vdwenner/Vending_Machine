@@ -84,7 +84,6 @@ public class VendingMachineCLI {
 					}
 					// do purchase
 				} else if (userChoice.equals(MAIN_MENU_OPTION_EXIT)) {
-					snackMaster3000.makeChange(snackMaster3000.getBalance());
 					System.out.println(snackMaster3000.getExitDialogue());
 					exit(1);
 				}

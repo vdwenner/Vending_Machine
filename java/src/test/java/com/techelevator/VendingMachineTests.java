@@ -13,15 +13,14 @@ VendingMachine testMachine = new VendingMachine();
 
 @Test
 public void makeChange_should_give_8_quarters_and_2_pennies_when_202_is_passed(){
-
     int testBalance = 202;
     String after202 = testMachine.makeChange(testBalance);
     String expectedResult = "8 quarters, 2 pennies";
-            Assert.assertEquals(expectedResult, after202);
-        }
+    Assert.assertEquals(expectedResult, after202);
+}
 
-        @Test
-        public void displayItems_should_display_b3_information(){
+@Test
+public void displayItems_should_display_b3_information(){
             TreeMap<String, Slot> slotMap = new TreeMap<>();
             slotMap.put("B3", new Slot ("B3", "Wonka Bar", "Candy", 150));
             String testString = testMachine.displayItems();
