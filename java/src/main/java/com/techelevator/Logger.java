@@ -1,7 +1,6 @@
 package com.techelevator;
 
 import java.io.*;
-import java.util.Scanner;
 
 public class Logger {
     private File log = new File("log.txt");

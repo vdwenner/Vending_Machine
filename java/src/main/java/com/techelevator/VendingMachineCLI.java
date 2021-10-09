@@ -2,12 +2,7 @@ package com.techelevator;
 
 import com.techelevator.view.Menu;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Scanner;
 import java.util.TreeMap;
 
 import static java.lang.System.exit;

@@ -2,8 +2,6 @@ package com.techelevator;
 
 import java.util.HashMap;
 
-import static java.lang.String.valueOf;
-
 public class Slot {
     private String identifier;
     private int quantity = 5;
@@ -23,37 +21,15 @@ public class Slot {
         return identifier;
     }
 
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
-    }
-
     public String getBrandName() {
         return brandName;
-    }
-
-    public void setBrandName(String brandName) {
-        this.brandName = brandName;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 
     public int getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
     //constructors
-
-
     public Slot(String identifier, String brandName, String category, int price) {
         this.identifier = identifier;
         this.brandName = brandName;
@@ -70,14 +46,8 @@ public class Slot {
             String priceAsString = parts[2].replace(".", "");
             Integer priceAsInt = Integer.parseInt(priceAsString);
             this.price = priceAsInt;
-
             }
-//if this doesn't work, check the parsing for price becoming an int
         }
-
-
-
-    //insert display slot method later
 
     public String getPhrase(){
         HashMap<String, String> phraseMap = new HashMap<String, String>();

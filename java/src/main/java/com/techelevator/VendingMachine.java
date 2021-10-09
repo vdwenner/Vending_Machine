@@ -3,7 +3,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
@@ -77,12 +76,10 @@ public class VendingMachine {
         String makeChangeLog = timeInfo + " " + "GIVE CHANGE: " + showAsDollars(balanceBeforeChange) + " " + showAsDollars(balance);
         logger.writeToFile(makeChangeLog);
         return changeAsString;
-
     }
 
 
     public void takeMoney(int deposit){
-
         balance += deposit;
         int whichBalanceForFirst = 0;
         if (balance == 0) {
@@ -94,11 +91,9 @@ public class VendingMachine {
         String timeInfo = LocalDateTime.now().format(formatter);
         String feedMoneyLog = timeInfo + " " + "FEED MONEY: " + showAsDollars(whichBalanceForFirst) + " " + showAsDollars(balance);
         logger.writeToFile(feedMoneyLog);
-
     }
 
     public void getVendingInfo () {
-
         File vendingFile = new File("vendingmachine.csv");
         try (Scanner fileInput = new Scanner(vendingFile)){
             while(fileInput.hasNextLine()) {
@@ -131,7 +126,6 @@ public class VendingMachine {
                 info = info + ", " + element.getValue().getQuantity() + " in stock";
             }
         }
-            //ordered Map like TreeMap to make it ordered
             return info;
         }
 
@@ -141,8 +135,6 @@ public class VendingMachine {
             String stringMath = "$" + String.format("%.2f",dollarMath);
             return stringMath;
         }
-
-
 
     public void selectProduct(String slotName) {
     Slot slotValue = slotMap.get(slotName);
@@ -163,14 +155,9 @@ public class VendingMachine {
                 logger.writeToFile(timeInfo + " " + slotValue.getBrandName() + " " + slotValue.getIdentifier() + " "
                             + showAsDollars(balance + slotValue.getPrice()) + " " + showAsDollars(balance));
                 }
-
                 //print without ln for multiple uses. Put version for each purchase option
             }
-
         }
-
-
-
 
 
 }
