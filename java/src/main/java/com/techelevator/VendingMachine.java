@@ -16,8 +16,7 @@ public class VendingMachine {
     public int balance = 0;
     public String exitDialogue = "Thank you for your purchase! Have an amazing day!";
 
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
-    String timeInfo = LocalDateTime.now().format(formatter);
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm:ss a");
 
 
     public TreeMap<String, Slot> getSlotMap() {
@@ -41,40 +40,17 @@ public class VendingMachine {
     }
 
     public String makeChange(int balance){
-        int nickel = 5;
-        int dime = 10;
-        int quarter = 25;
-        int numberOfPennies = 0;
-        int numberOfNickels = 0;
-        int numberOfDimes = 0;
-        int numberOfQuarters = 0;
+        int[] coinValue = new int[]{25, 10, 5, 1};
+        int[] totalCoinsArray = new int[]{0, 0, 0, 0};
         int leftOver = 0;
-        int coin = quarter;
-        int numberOfCoins = 0;
-        if (balance >= coin){
-            leftOver = balance % coin;
-            numberOfCoins = (balance - leftOver) / coin;
-            balance = balance - (numberOfCoins * coin);
+        for (int i = 0; i < 4; i++) {
+            if (balance >= coinValue[i]) {
+                leftOver = balance % coinValue[i];
+                totalCoinsArray[i] = (balance - leftOver) / coinValue[i];
+                balance = balance - (totalCoinsArray[i] * coinValue[i]);
+            }
         }
-        numberOfQuarters = numberOfCoins;
-        numberOfCoins = 0;
-        coin = dime;
-        if (balance >= coin){
-            leftOver = balance % coin;
-            numberOfCoins = (balance - leftOver) / coin;
-            balance = balance - (numberOfCoins * coin);
-        }
-        numberOfDimes = numberOfCoins;
-        numberOfCoins = 0;
-        coin = nickel;
-        if (balance >= coin){
-            leftOver = balance % coin;
-            numberOfCoins = (balance - leftOver) / coin;
-            balance = balance - (numberOfCoins * coin);
-        }
-        numberOfNickels = numberOfCoins;
-        numberOfPennies = balance;
-        int[] totalCoinsArray = new int[]{numberOfQuarters, numberOfDimes, numberOfNickels, numberOfPennies};
+
         String[] coinNamesArray = new String[]{"quarter", "dime", "nickel", "penny", "quarters", "dimes", "nickels", "pennies"};
         String changeAsString = "";
         int firstCoin = 0;
@@ -104,6 +80,7 @@ public class VendingMachine {
 
     public void takeMoney(int deposit){
         balance += (deposit);
+        String timeInfo = LocalDateTime.now().format(formatter);
         String feedMoneyLog = timeInfo + " " + "FEED MONEY: " + deposit;
         logger.writeToFile(feedMoneyLog);
 
@@ -165,12 +142,14 @@ public class VendingMachine {
                 //return to purchase menu
             }
             if (balance >= slotValue.getPrice()) {
+                String timeInfo = LocalDateTime.now().format(formatter);
                 out.println(slotValue.getBrandName() + " " + showAsDollars(slotValue.getPrice()));
                 System.out.println(slotValue.getPhrase());
                 setBalance(balance - slotValue.getPrice());
                 slotValue.setQuantity(slotValue.getQuantity() - 1);
                 //add a comma
-                logger.writeToFile(timeInfo + slotValue.getBrandName() + " " + slotValue.getIdentifier() + " " + slotValue.getPrice());
+                logger.writeToFile(timeInfo + " " + slotValue.getBrandName() + " " + slotValue.getIdentifier() + " "
+                        + showAsDollars((balance + slotValue.getPrice())) + " " + showAsDollars(balance));
                 //print without ln for multiple uses. Put version for each purchase option
             }
 
