@@ -142,15 +142,7 @@ public class VendingMachine {
             return stringMath;
         }
 
- //       public String dollarString(int pennyMath) {
-//add a comma
-//                if (showAsDollars((balance + slotValue.getPrice())) >= 1000) {
-//                    Integer beforePurchaseValue = (balance + slotValue.getPrice());
-//                    String pennyAmountAsString = Integer.toString(beforePurchaseValue);
-//                    pennyAmountAsString = pennyAmountAsString.substring(pennyAmountAsString.length()-2).;
-//                    String dollarAmountAsString = Integer.toString(beforePurchaseValue);
-//                    dollarAmountAsString = dollarAmountAsString.substring(dollarAmountAsString.length()-4, dollarAmountAsString.length()-3);
-//        }
+
 
     public void selectProduct(String slotName) {
     Slot slotValue = slotMap.get(slotName);
