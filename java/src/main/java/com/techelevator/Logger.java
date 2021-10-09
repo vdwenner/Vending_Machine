@@ -24,5 +24,4 @@ public class Logger {
             System.exit(404);
         }
     }
-
 }

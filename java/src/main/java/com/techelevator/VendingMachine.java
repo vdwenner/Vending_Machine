@@ -148,8 +148,16 @@ public class VendingMachine {
                 setBalance(balance - slotValue.getPrice());
                 slotValue.setQuantity(slotValue.getQuantity() - 1);
                 //add a comma
-                logger.writeToFile(timeInfo + " " + slotValue.getBrandName() + " " + slotValue.getIdentifier() + " "
-                        + showAsDollars((balance + slotValue.getPrice())) + " " + showAsDollars(balance));
+//                if (showAsDollars((balance + slotValue.getPrice())) >= 1000) {
+//                    Integer beforePurchaseValue = (balance + slotValue.getPrice());
+//                    String pennyAmountAsString = Integer.toString(beforePurchaseValue);
+//                    pennyAmountAsString = pennyAmountAsString.substring(pennyAmountAsString.length()-2).;
+//                    String dollarAmountAsString = Integer.toString(beforePurchaseValue);
+//                    dollarAmountAsString = dollarAmountAsString.substring(dollarAmountAsString.length()-4, dollarAmountAsString.length()-3);
+                    logger.writeToFile(timeInfo + " " + slotValue.getBrandName() + " " + slotValue.getIdentifier() + " "
+                            + showAsDollars((balance + slotValue.getPrice())) + " " + showAsDollars(balance));
+                }
+
                 //print without ln for multiple uses. Put version for each purchase option
             }
 
