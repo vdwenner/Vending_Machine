@@ -71,6 +71,13 @@ TreeMap<String, Slot> slotMap = new TreeMap<>();
             Assert.assertEquals(expectedResult, actualResult);
         }
 
+        @Test
+    public void showAsDollars_should_return_$1period50_when_150_is_passed(){
+            String actualResult = testMachine.showAsDollars(150);
+            String expectedResult = "$1.50";
+            Assert.assertEquals(expectedResult, actualResult);
+        }
+
 }
 
 
