@@ -31,6 +31,8 @@ public class VendingMachineCLI {
 	private static final String DEPOSIT_MENU_OPTION_TEN = "$10";
 	private static final String[] DEPOSIT_MENU_OPTIONS = { DEPOSIT_MENU_OPTION_ONE,DEPOSIT_MENU_OPTION_TWO,DEPOSIT_MENU_OPTION_FIVE,DEPOSIT_MENU_OPTION_TEN};
 
+	private static final String SECRET_FOUR = "4";
+
 //for user putting in product code, for each loop, get keySet turn to array
 	private Menu menu;
 
@@ -45,6 +47,7 @@ public class VendingMachineCLI {
 
 		while (true) {
 				String userChoice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
+				boolean suppressList = false;
 
 				if (userChoice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 					// display vending machine items
@@ -76,7 +79,7 @@ public class VendingMachineCLI {
 				} else if (userChoice.equals(MAIN_MENU_OPTION_EXIT)) {
 					System.out.println(snackMaster3000.getExitDialogue());
 					exit(1);
-				} else if (userChoice.equals(4)){
+				} else if (userChoice.equals("4")){
 					snackMaster3000.displaySalesReport();
 				}
 		}

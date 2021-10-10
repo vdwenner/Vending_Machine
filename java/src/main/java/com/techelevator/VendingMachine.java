@@ -41,6 +41,13 @@ public class VendingMachine {
 
     public String makeChange(int balance){
         int balanceBeforeChange = balance;
+        String changeAsString = "";
+        boolean wasBalanceZero = false;
+        if (balanceBeforeChange == 0){
+            changeAsString = "nothing, because the balance was zero";
+            wasBalanceZero = true;
+
+        }
         int[] coinValue = new int[]{25, 10, 5, 1};
         int[] totalCoinsArray = new int[]{0, 0, 0, 0};
         int leftOver = 0;
@@ -53,7 +60,7 @@ public class VendingMachine {
         }
 
         String[] coinNamesArray = new String[]{"quarter", "dime", "nickel", "penny", "quarters", "dimes", "nickels", "pennies"};
-        String changeAsString = "";
+
         int firstCoin = 0;
         for (int i = 0; i < totalCoinsArray.length; i++){
             // length - 1?
@@ -75,7 +82,9 @@ public class VendingMachine {
 
         String timeInfo = LocalDateTime.now().format(formatter);
         String makeChangeLog = timeInfo + " " + "GIVE CHANGE: " + showAsDollars(balanceBeforeChange) + " " + showAsDollars(balance);
-        everythingLogger.writeToFile(makeChangeLog);
+        if (!wasBalanceZero){
+            everythingLogger.writeToFile(makeChangeLog);
+        }
         String changeDialogue = "You receive " + changeAsString + ".";
 
         return changeDialogue;
