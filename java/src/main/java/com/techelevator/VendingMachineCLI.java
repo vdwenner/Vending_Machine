@@ -16,7 +16,8 @@ public class VendingMachineCLI {
 	private static final String MAIN_MENU_OPTION_DISPLAY_ITEMS = "Display Vending Machine Items";
 	private static final String MAIN_MENU_OPTION_PURCHASE = "Purchase";
 	private static final String MAIN_MENU_OPTION_EXIT = "Exit";
-	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE, MAIN_MENU_OPTION_EXIT };
+	private static final String MAIN_MENU_OPTION_SECRET = "Secret";
+	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE, MAIN_MENU_OPTION_EXIT, MAIN_MENU_OPTION_SECRET };
 
 	//purchase options
 	private static final String PURCHASE_MENU_OPTION_FEED_MONEY = "Feed Money";
@@ -46,7 +47,7 @@ public class VendingMachineCLI {
 		snackMaster3000.getVendingInfo();
 
 		while (true) {
-				String userChoice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
+				String userChoice = (String) menu.getChoiceFromOptionsMain(MAIN_MENU_OPTIONS);
 				boolean suppressList = false;
 
 				if (userChoice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
@@ -79,7 +80,7 @@ public class VendingMachineCLI {
 				} else if (userChoice.equals(MAIN_MENU_OPTION_EXIT)) {
 					System.out.println(snackMaster3000.getExitDialogue());
 					exit(1);
-				} else if (userChoice.equals("4")){
+				} else if (userChoice.equals(MAIN_MENU_OPTION_SECRET)){
 					snackMaster3000.displaySalesReport();
 				}
 		}

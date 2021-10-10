@@ -180,7 +180,11 @@ public class VendingMachine {
                 String line = salesInput.nextLine();
                 if ((line != null) && (!line.isEmpty())) {
                     String[] parts = line.split("\\|");
-                    out.println(parts);
+                    out.println("");
+                    for (String string : parts){
+                        out.print(string);
+                    }
+                    out.println("");
                 }
             }
         }

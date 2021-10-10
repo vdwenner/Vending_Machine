@@ -3,11 +3,11 @@ package com.techelevator;
 import java.io.*;
 
 public class SalesLogger {
-    private File log = new File("salesreport.txt");
+    private File salesFile = new File("salesreport.txt");
 
     private void createFile(){
         try {
-            log.createNewFile();
+            salesFile.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -15,7 +15,7 @@ public class SalesLogger {
 
     public void writeToFile (String message) {
         createFile();
-        try (PrintWriter transactionLog = new PrintWriter(new FileOutputStream(log, true))){
+        try (PrintWriter transactionLog = new PrintWriter(new FileOutputStream(salesFile, true))){
             transactionLog.append(message + "\n");
         }
         catch (FileNotFoundException e) {
