@@ -13,8 +13,9 @@ public class VendingMachine {
     public TreeMap<String, Slot> slotMap = new TreeMap<>();
     public EverythingLogger everythingLogger = new EverythingLogger();
     public SalesLogger salesLogger = new SalesLogger();
-    public int balance = 0;
+    private int balance = 0;
     public String exitDialogue = "Thank you for your purchase! Have an amazing day!";
+    private int allProductsTotalSalesDollars = 0;
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm:ss a");
 
@@ -37,6 +38,10 @@ public class VendingMachine {
 
     public void setSlotMap(TreeMap<String, Slot> slotMap) {
         this.slotMap = slotMap;
+    }
+
+    public int getAllProductsTotalSalesDollars() {
+        return allProductsTotalSalesDollars;
     }
 
     public String makeChange(int balance){
@@ -148,6 +153,13 @@ public class VendingMachine {
             return stringMath;
         }
 
+        public String showAsDouble(int pennyMath){
+            Double dollarMath = (double) pennyMath;
+            dollarMath = dollarMath / 100.00;
+            String doubleMath = String.format("%.2f",dollarMath);
+            return doubleMath;
+        }
+
     public void selectProduct(String slotName) {
     Slot slotValue = slotMap.get(slotName);
         if (!slotMap.keySet().contains(slotName)) { //if people put in a slot that doesn't exist
@@ -164,27 +176,32 @@ public class VendingMachine {
                 System.out.println(slotValue.getPhrase());
                 setBalance(balance - slotValue.getPrice());
                 slotValue.setQuantity(slotValue.getQuantity() - 1);
-                String logLine = timeInfo + " " + slotValue.getBrandName() + " " + slotValue.getIdentifier() + " "
+                String everythinglogLine = timeInfo + " " + slotValue.getBrandName() + " " + slotValue.getIdentifier() + " "
                         + showAsDollars(balance + slotValue.getPrice()) + " " + showAsDollars(balance);
-                everythingLogger.writeToFile(logLine);
-                salesLogger.writeToFile(logLine);
+                everythingLogger.writeToFile(everythinglogLine);
+
+                slotValue.setTotalSales(slotValue.getTotalSales() + 1);
+                allProductsTotalSalesDollars += slotValue.getPrice();
                 }
-                //print without ln for multiple uses. Put version for each purchase option
             }
         }
 
     public void displaySalesReport() {
+        //the report will not be updated until the secret option is chosen
+        String salesLogLine = "";
+        for(Map.Entry<String, Slot> element: slotMap.entrySet()){
+            salesLogLine = salesLogLine + "\n" + element.getValue().getBrandName() + "|" + element.getValue().getTotalSales();
+        }
+        salesLogLine = salesLogLine + "\n" + "\n" + "TOTAL SALES: " + showAsDollars(allProductsTotalSalesDollars);
+        salesLogger.writeToFile(salesLogLine);
+
         File salesFile = new File("salesreport.txt");
+
         try (Scanner salesInput = new Scanner(salesFile)){
             while(salesInput.hasNextLine()) {
                 String line = salesInput.nextLine();
-                if ((line != null) && (!line.isEmpty())) {
-                    String[] parts = line.split("\\|");
-                    out.println("");
-                    for (String string : parts){
-                        out.print(string);
-                    }
-                    out.println("");
+                if (line != null) {
+                    out.println(line);
                 }
             }
         }

@@ -8,6 +8,7 @@ public class Slot {
     private String brandName;
     private String category;
     private int price;
+    private int totalSales = 0;
 
     public int getQuantity() {
         return quantity;
@@ -25,8 +26,20 @@ public class Slot {
         return brandName;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
     public int getPrice() {
         return price;
+    }
+
+    public int getTotalSales() {
+        return totalSales;
+    }
+
+    public void setTotalSales(int totalSales) {
+        this.totalSales = totalSales;
     }
 
     //constructors

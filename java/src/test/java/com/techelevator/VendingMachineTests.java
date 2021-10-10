@@ -78,6 +78,13 @@ TreeMap<String, Slot> slotMap = new TreeMap<>();
             Assert.assertEquals(expectedResult, actualResult);
         }
 
+        @Test
+        public void showAsDouble_should_return_3period00_when_300_is_passed(){
+            String actualResult = testMachine.showAsDouble(300);
+            String expectedResult = "3.00";
+            Assert.assertEquals(expectedResult, actualResult);
+        }
+
 }
 
 
