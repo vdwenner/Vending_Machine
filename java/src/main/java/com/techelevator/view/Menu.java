@@ -29,6 +29,9 @@ public class Menu {
 		String userInput = in.nextLine();
 		try {
 			int selectedOption = Integer.valueOf(userInput);
+			if (selectedOption == 4 && options.length == 4){
+				choice = 4;
+			}
 			if (selectedOption > 0 && selectedOption <= options.length) {
 				choice = options[selectedOption - 1];
 			}
@@ -49,5 +52,18 @@ public class Menu {
 		}
 		out.print(System.lineSeparator() + "Please choose an option >>> ");
 		out.flush();
+	}
+	private Object getSecretChoice(String secretChoice){
+		Object choice = null;
+		String userInput = in.nextLine();
+		try {
+			int selectedOption = Integer.valueOf(userInput);
+		} catch (NumberFormatException e) {
+			// eat the exception, an error message will be displayed below since choice will be null
+		}
+		if (choice == null) {
+			out.println(System.lineSeparator() + "*** " + userInput + " is not a valid option ***" + System.lineSeparator());
+		}
+		return choice;
 	}
 }
