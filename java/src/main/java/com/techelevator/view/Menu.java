@@ -24,8 +24,6 @@ public class Menu {
 		return choice;
 	}
 
-	// OVERLOAD SET 1: getChoiceFromOptions(Object[] options, boolean naturalKey)
-
 	private void displayMenuOptions(Object[] options) {
 		out.println();
 		for (int i = 0; i < options.length; i++) {
@@ -35,10 +33,6 @@ public class Menu {
 		out.print(System.lineSeparator() + "Please choose an option >>> ");
 		out.flush();
 	}
-
-	//OVERLOAD SET 1: displayMenuOptions(Object[] options, boolean suppressLineNumbers, boolean suppressList)
-
-
 
 	private Object getChoiceFromUserInput(Object[] options) {
 		Object choice = null;

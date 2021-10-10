@@ -13,12 +13,20 @@ TreeMap<String, Slot> slotMap = new TreeMap<>();
         public void makeChange_should_give_8_quarters_and_2_pennies_when_202_is_passed(){
             int testBalance = 202;
             String after202 = testMachine.makeChange(testBalance);
-            String expectedResult = "8 quarters, 2 pennies";
+            String expectedResult = "You receive 8 quarters, 2 pennies.";
             Assert.assertEquals(expectedResult, after202);
         }
 
         @Test
-        public void displayItems_should_display_b3_information(){
+        public void makeChange_should_give_nothing_when_0_is_passed(){
+            int testBalance = 0;
+            String actualResult = testMachine.makeChange(testBalance);
+            String expectedResult = "You receive nothing, because the balance was zero.";
+            Assert.assertEquals(expectedResult, actualResult);
+        }
+
+        @Test
+        public void displayItems_should_display_B3_information(){
             slotMap.put("B3", new Slot ("B3", "Wonka Bar", "Candy", 150));
             String testString = testMachine.displayItems();
             testMachine.setSlotMap(slotMap);
@@ -28,7 +36,7 @@ TreeMap<String, Slot> slotMap = new TreeMap<>();
         }
 
         @Test
-        public void getVendingInfo_should_give_brand_name_cowtales_for_b2_when_file_is_read(){
+        public void getVendingInfo_should_give_brand_name_cowtales_for_B2_when_file_is_read(){
             testMachine.getVendingInfo();
             String actualResult = testMachine.getSlotMap().get("B2").getBrandName();
             Slot testSlot = new Slot ("B2", "Cowtales", "Candy", 150);
@@ -37,11 +45,19 @@ TreeMap<String, Slot> slotMap = new TreeMap<>();
         }
 
         @Test
-        public void takeMoney_should_add_five_hundred_if_five_dollars_is_deposited(){
+        public void takeMoney_should_give_500_to_balance_if_500_is_passed(){
             testMachine.takeMoney(500);
             int actualResult = testMachine.getBalance();
             int expectedResult = 500;
             Assert.assertEquals(expectedResult,actualResult);
+        }
+
+        @Test
+        public void getBalance_should_give_500_if_500_is_passed_by_setBalance(){
+            testMachine.setBalance(500);
+            int actualResult = testMachine.getBalance();
+            int expectedResult = 500;
+            Assert.assertEquals(expectedResult, actualResult);
         }
 
         @Test
