@@ -183,6 +183,9 @@ public class VendingMachine {
                 slotValue.setTotalSales(slotValue.getTotalSales() + 1);
                 allProductsTotalSalesDollars += slotValue.getPrice();
                 }
+            else {
+                out.println("Insufficient funds, please give more money.");
+            }
             }
         }
 
